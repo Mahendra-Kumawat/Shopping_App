@@ -1,15 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { AppContext } from "../context/AppContext";
+import Spinner from "../components/Spinner";
 
 const Home = () => {
  
- const { data, setData } = useContext(AppContext);
-//  const [sort , setSort] = useState('')
+ const { data, setData, loading } = useContext(AppContext);
 
-//  useEffect(() =>{
-//     sortByPrice(sort);
-//  },[sort])
 
 
   function sortByPrice(value) {
@@ -30,7 +27,7 @@ const Home = () => {
 
 
   return (
-    <>
+    <div>
       <div className="flex justify-center items-center space-x-4">
         <h1 className="text-center font-bold text-3xl text-gray-700 py-4">
           Welcome to my shopping page
@@ -46,11 +43,13 @@ const Home = () => {
       </div>
 
       <div className="w-full max-w-[1180px] mx-auto grid mt-8 py-4 pb-12 gap-6 gap-y-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 px-4 md:px-0 ">
-        {data.map((item) => {
+        {
+          loading ? (<Spinner/>) : (data.map((item) => {
           return <ProductCard item={item} key={item.id} />;
-        })}
+        }))
+         }
       </div>
-    </>
+    </div>
   );
 };
 
